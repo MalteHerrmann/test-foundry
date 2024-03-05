@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.20;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, console} from "forge-std/Test.sol";
 import "../../src/stateful/StakingI.sol" as staking;
 
 contract StakingTest is Test {
     string[] private stakingMethods = [staking.MSG_DELEGATE];
 
     function test_approveMethods() public {
+        console.log("allowance for ", msg.sender);
+
         uint256 allowance = staking.STAKING_CONTRACT.allowance(
-            address(this),
+            msg.sender,
             address(staking.STAKING_CONTRACT),
             stakingMethods[0]
         );
